@@ -11,6 +11,7 @@ Everything "dynamic" is simulated with typed mock data in `src/data/*` and local
 ## Scope of the static build
 
 ### A. Public website (real, production-quality content)
+
 - **Home** (`/`) — hero, vision, why Charithra, programme grid, how-it-works (Diagnose → Understand → Personalise → Teach → Assess → Track → Improve), assessment system, teacher network, Tamil Academy / Online / Home Tuition / Future Skills strips, parent community, testimonials, CTA band. Primary CTA "Find the Right Learning Programme", secondary "Become a Teacher".
 - **About** (`/about`) — vision, mission, learning philosophy, values, future-school vision.
 - **Programmes** (`/programmes`) — filterable list by category (Academic, Foundation Recovery, One-to-One, Online, Home Tuition, Future Skills, Tamil Academy).
@@ -20,10 +21,13 @@ Everything "dynamic" is simulated with typed mock data in `src/data/*` and local
 - **Contact** (`/contact`).
 
 ### B. Workflow explainer pages (the "understand the system" part)
+
 - `/how-it-works` — the three journeys (Parent, Teacher, Staff) rendered as visual step flows, plus the CRM pipeline stages as a horizontal board.
 
 ### C. Demo portals (static, role-switchable, mock data)
+
 Accessible from a `/demo` entry that lets you pick a role — no auth, clearly labelled "Demo data".
+
 - **Admin dashboard** (`/demo/admin`) — KPI cards (leads, conversion, active students, revenue, pending fees, attendance), charts, at-risk students table, AI-insight cards marked as AI-generated recommendations.
 - **CRM board** (`/demo/admin/crm`) — Kanban of the 12 pipeline stages with mock lead cards and a lead detail drawer showing the activity timeline.
 - **Students list + student profile** (`/demo/admin/students`, `.../students/$id`) — learning profile: current level, strengths, gaps, recommended programme, 10 growth dimensions as a radar-style panel, attendance and test history.
@@ -37,9 +41,11 @@ Each portal shares one app shell (sidebar + topbar + role switcher), so the navi
 Every table gets search, filters, sort, pagination, and empty/loading/error states so the UX contract from section 32 is demonstrated.
 
 ### D. Design system
+
 One distinctive education-tech direction defined entirely in `src/styles.css` as oklch tokens (deep academic ink base, a warm Tamil-heritage accent, restrained gold for achievement states), custom shadcn variants, no hardcoded colours in components. Generated hero/programme imagery. Mobile responsive throughout.
 
 ## What is explicitly NOT in this build
+
 No auth, no RBAC enforcement, no persistence, no payments, no email/SMS/WhatsApp, no real AI, no exam engine grading, no file uploads, no audit logs. Those are named in the blueprint below with where they slot in.
 
 ## Architecture blueprint (delivered as an in-app `/architecture` page + `docs/architecture.md`)
@@ -54,6 +60,7 @@ Written so the static prototype can be upgraded without rewrites:
 6. **Phasing** — Phase 1 Foundation → 2 CRM → 3 LMS → 4 Assessment → 5 Operations → 6 Finance → 7 Staff Performance → 8 AI Analytics, matching the document.
 
 ### Feature enhancements I'd add beyond the document
+
 - **Multi-tenant / multi-branch from day one** — an `organisation` + `branch` scope on every row, so Tamil Academy, Future School and franchise centres don't need a migration later.
 - **Event log as a first-class primitive** — every meaningful action emits a domain event; CRM timelines, audit logs, notifications and AI features all read from it instead of each module inventing its own history table.
 - **Human-in-the-loop by design** — AI outputs land in a review queue with approve/edit/reject, never straight into a parent-facing report.
@@ -62,6 +69,7 @@ Written so the static prototype can be upgraded without rewrites:
 - **Feature flags per branch/role** so phases can ship to one centre first.
 
 ## Technical notes
+
 - TanStack Start routes under `src/routes`; `src/routes/index.tsx` becomes the real Home page.
 - Mock data as typed modules in `src/data/` (leads, students, teachers, programmes, insights) — one obvious seam to replace with real fetching later.
 - Charts via a lightweight charting lib; tables via shadcn primitives.
